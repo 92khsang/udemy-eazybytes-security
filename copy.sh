@@ -1,16 +1,22 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-  echo "Usage: $0 <section_number>"
+  echo "Usage: $0 <section_number> [<next_section_number>]"
   exit 1
 fi
 
 SRC_NUM=$(printf "%02d" "$1")
-DST_NUM=$(printf "%02d" $((10#$1 + 1)))
+
+if [ -z "$2" ]; then
+  DST_NUM=$(printf "%02d" $((10#$1 + 1)))
+else
+  DST_NUM=$(printf "%02d" "$2")
+fi
+
 SRC_DIR="section_${SRC_NUM}"
 DST_DIR="section_${DST_NUM}"
-SRC_SUB="springsecsection$((10#$1))"
-DST_SUB="springsecsection$((10#$1 + 1))"
+SRC_SUB="springsecsection$((10#$SRC_NUM))"
+DST_SUB="springsecsection$((10#$DST_NUM))"
 
 if [ ! -d "$SRC_DIR" ]; then
   echo "Source directory $SRC_DIR does not exist."
