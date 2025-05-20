@@ -12,5 +12,16 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     restart: unless-stopped
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8180:8080"
+    restart: unless-stopped
+
 volumes:
   mysql_data:
